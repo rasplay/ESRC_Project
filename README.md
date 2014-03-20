@@ -38,12 +38,12 @@
     ```
 
 #### (Optional) GPIO Status Monitor
-  You can monitor RaspberryPi GPIO status, using WebIOPi.
   * WebIOPi Install
+    * You can monitor RaspberryPi GPIO status, using WebIOPi
     ```
-    $ wget http://downloads.sourceforge.net/project/webiopi/WebIOPi-0.7.0.tar.gz
-    $ tar xf WebIOPi-0.7.0.tar.gz
-    $ cd WebIOPi-0.7.0
-    $ sudo ./setup.sh
+    $ wget http://downloads.sourceforge.net/project/webiopi/WebIOPi-0.7.0.tar.gz     
+    $ tar xf WebIOPi-0.7.0.tar.gz      
+    $ cd WebIOPi-0.7.0       
+    $ sudo ./setup.sh      
     ```
 
