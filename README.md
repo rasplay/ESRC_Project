@@ -18,7 +18,9 @@ SW
 
 
   *** Raspbian Image Download **
-  ```http://fendergold.iptime.org:81/sharedfiles/OS/Raspbian/2014-01-07-wheezy-raspbian.img```
+  ```
+  http://fendergold.iptime.org:81/sharedfiles/OS/Raspbian/2014-01-07-wheezy-raspbian.img
+  ```
 
   *** Raspbian Configuration**\\ <code>
 $ sudo raspi-config</code>
