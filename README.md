@@ -16,36 +16,26 @@ HW
 
 SW
 
- 1. wiringPi, Library for Raspberry Pi GPIO Control
 
-Installation wiringPi Source
+  *** Raspbian Image Download **\\ <code>
+http://fendergold.iptime.org:81/sharedfiles/OS/Raspbian/2014-01-07-wheezy-raspbian.img</code>
 
-$ git clone git://git.drogon.net/wiringPi
+  *** Raspbian Configuration**\\ <code>
+$ sudo raspi-config</code>
 
+  *** Raspbian Update**\\ <code>$ sudo apt-get update
+$ sudo apt-get upgrade -y</code>
+
+  *** WiringPi Library**\\ <code>$ git clone git://git.drogon.net/wiringPi
 $ cd wiringPi
+$ ./build</code>
 
-$ ./build
+  *** WebIOPi Install**\\ <code>$ wget http://downloads.sourceforge.net/project/webiopi/WebIOPi-0.7.0.tar.gz
+$ tar xf WebIOPi-0.7.0.tar.gz
+$ cd WebIOPi-0.7.0
+$ sudo ./setup.sh</code>
 
-Test wiringPi
-
-$ gpio -v
-
-DCMotorKeyControl Clone
-
-$ git clone https://github.com/rasplay/DCMotorKeyControl.git
-
+  *** Using DC Motor Control Source**\\ <code>$ git clone https://github.com/rasplay/DCMotorKeyControl.git
 $ cd DCMotorKeyControl
-
-compile examples.
-
-$ gcc -o rc_key rc_key_1.c -lwiringPi
-
-rc_key_1.c use two motors, one is front-rear motor, the other is left-right motor.
-
-rc_key_2.c use two motors, one is left motor, the other is right motor.
-
-and, run
-
-$ sudo ./rc_key
-
-Enjoy!!  
+$ gcc -o rc rc_key_2.c -lwiringPi
+$ sudo ./rc</code>
