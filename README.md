@@ -28,20 +28,22 @@
     $ sudo ./rc
     ```
 
+===
 #### (Previous job) Raspian Installation
   * Make Raspbian OS SD Card
-    * http://www.rasplay.org/?p=50
-  * Raspbian Configuration
+    * [http://www.rasplay.org/?p=50](http://www.rasplay.org/?p=50)
+  * Raspbian Configuration<br/>
     ```
     $ sudo raspi-config
     ```
 
 #### (Optional) GPIO Status Monitor
-You can monitor RaspberryPi GPIO status, using WebIOPi.
+  You can monitor RaspberryPi GPIO status, using WebIOPi.
   * WebIOPi Install
-```
-$ wget http://downloads.sourceforge.net/project/webiopi/WebIOPi-0.7.0.tar.gz
-$ tar xf WebIOPi-0.7.0.tar.gz
-$ cd WebIOPi-0.7.0
-$ sudo ./setup.sh
-```
+    ```
+    $ wget http://downloads.sourceforge.net/project/webiopi/WebIOPi-0.7.0.tar.gz
+    $ tar xf WebIOPi-0.7.0.tar.gz
+    $ cd WebIOPi-0.7.0
+    $ sudo ./setup.sh
+    ```
+
