@@ -1,6 +1,6 @@
 # ESRC:Environmental Scanning RC Car
 
-## HW
+## Hardware
 
 ### Parts ###
 Name| 
@@ -35,7 +35,7 @@ Screw(7mm)|
 [LED](http://www.icbanq.com/shop/product_detail.asp?prod_code=P000100710)|
 [Cables](http://artrobot.co.kr/front/php/product.php?product_no=391&main_cate_no=)|
 
-## SW
+## Software
 
 ### Basic DC Motor Control
   * Raspbian Update
