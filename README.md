@@ -17,27 +17,40 @@ HW
 SW
 
 
-  *** Raspbian Image Download **
+  * Raspbian Image Download
   ```
-  http://fendergold.iptime.org:81/sharedfiles/OS/Raspbian/2014-01-07-wheezy-raspbian.img
+http://fendergold.iptime.org:81/sharedfiles/OS/Raspbian/2014-01-07-wheezy-raspbian.img
   ```
 
-  *** Raspbian Configuration**\\ <code>
-$ sudo raspi-config</code>
+  * Raspbian Configuration
+```
+$ sudo raspi-config
+```
 
-  *** Raspbian Update**\\ <code>$ sudo apt-get update
+  * Raspbian Update
+```
+$ sudo apt-get update
 $ sudo apt-get upgrade -y</code>
+```
 
-  *** WiringPi Library**\\ <code>$ git clone git://git.drogon.net/wiringPi
+  * WiringPi Library
+```
+$ git clone git://git.drogon.net/wiringPi
 $ cd wiringPi
 $ ./build</code>
+```
 
-  *** WebIOPi Install**\\ <code>$ wget http://downloads.sourceforge.net/project/webiopi/WebIOPi-0.7.0.tar.gz
+  * WebIOPi Install
+```
+$ wget http://downloads.sourceforge.net/project/webiopi/WebIOPi-0.7.0.tar.gz
 $ tar xf WebIOPi-0.7.0.tar.gz
 $ cd WebIOPi-0.7.0
 $ sudo ./setup.sh</code>
+```
 
-  *** Using DC Motor Control Source**\\ <code>$ git clone https://github.com/rasplay/DCMotorKeyControl.git
+  * Using DC Motor Control Source
+```$ git clone https://github.com/rasplay/DCMotorKeyControl.git
 $ cd DCMotorKeyControl
 $ gcc -o rc rc_key_2.c -lwiringPi
 $ sudo ./rc</code>
+```
