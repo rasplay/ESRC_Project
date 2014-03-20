@@ -30,14 +30,14 @@ $ sudo raspi-config
   * Raspbian Update
 ```
 $ sudo apt-get update
-$ sudo apt-get upgrade -y</code>
+$ sudo apt-get upgrade -y
 ```
 
   * WiringPi Library
 ```
 $ git clone git://git.drogon.net/wiringPi
 $ cd wiringPi
-$ ./build</code>
+$ ./build
 ```
 
   * WebIOPi Install
@@ -45,7 +45,7 @@ $ ./build</code>
 $ wget http://downloads.sourceforge.net/project/webiopi/WebIOPi-0.7.0.tar.gz
 $ tar xf WebIOPi-0.7.0.tar.gz
 $ cd WebIOPi-0.7.0
-$ sudo ./setup.sh</code>
+$ sudo ./setup.sh
 ```
 
   * Using DC Motor Control Source
@@ -53,5 +53,5 @@ $ sudo ./setup.sh</code>
 $ git clone https://github.com/rasplay/DCMotorKeyControl.git
 $ cd DCMotorKeyControl
 $ gcc -o rc rc_key_2.c -lwiringPi
-$ sudo ./rc</code>
+$ sudo ./rc
 ```
