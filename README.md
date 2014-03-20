@@ -18,9 +18,9 @@ SW
 
 
   * Raspbian Image Download
-  ```
+```
 http://fendergold.iptime.org:81/sharedfiles/OS/Raspbian/2014-01-07-wheezy-raspbian.img
-  ```
+```
 
   * Raspbian Configuration
 ```
@@ -49,7 +49,8 @@ $ sudo ./setup.sh</code>
 ```
 
   * Using DC Motor Control Source
-```$ git clone https://github.com/rasplay/DCMotorKeyControl.git
+```
+$ git clone https://github.com/rasplay/DCMotorKeyControl.git
 $ cd DCMotorKeyControl
 $ gcc -o rc rc_key_2.c -lwiringPi
 $ sudo ./rc</code>
