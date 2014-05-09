@@ -9,7 +9,7 @@ You must switch parameter id, password.. in tempMailAlarm.py
 
   * Run SetupScript (sendemail package, Adafuit Repository)
     ```
-    pi@openmake ~/esrc/tempMailAlarm $ setup.sh
+    pi@openmake ~/esrc/tempMailAlarm $ sh setup.sh
     ```
 
   * Run Python Script
