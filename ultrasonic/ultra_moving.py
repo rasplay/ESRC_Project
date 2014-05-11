@@ -100,7 +100,7 @@ def motor_run(distance):
             time.sleep(1)
         return
 
-    if ( distance < 30 and wall_count == 0 ):
+    if ( distance < STOP_DISTANCE and wall_count == 0 ):
         GPIO.output(M1_A, False)
         GPIO.output(M1_B, False)
         GPIO.output(M2_A, False)
@@ -137,8 +137,10 @@ print "Ultrasonic Measurement"
 wall_count = 0
 turn_count = 0
 
+# Change Values
 WALL_LIMIT = 5 # Move Back during 0 to WALL_LIMIT count
 TURN_LIMIT = 3 # Turn during 0 to TURN_LIMIT count
+STOP_DISTANCE = 30 # If measure distance less then STOP_DISTANCE, Stop Motor
 
 # Set pins as output and input
 GPIO.setup(GPIO_TRIGGER,GPIO.OUT)  # Trigger
