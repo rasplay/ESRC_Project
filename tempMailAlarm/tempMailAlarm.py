@@ -26,6 +26,8 @@ userid      = 'gmail_id'           # Switch user gmail_id
 smtp        = 'smtp.gmail.com'     # Do not change, if use gmail
 password    = 'gmail_password'     # Switch user gmail_password
 
+TEMP_LIMIT  = 30 # if temp over TEMP_LIMIT, send mail to tomail
+
 # ===========================================================================
 # Example Code
 # ===========================================================================
@@ -54,7 +56,7 @@ while(True):
   print "Humidity:    %.1f %%" % humidity
 
 
-  if (temp >= 30):
+  if (temp >= TEMP_LIMIT):
          #str_mailbody = 'Temp is ' + temp + ' C, Humi is ' + humidity + '!!'
          str_mailbody = "Temp is %.2f C, Humidity is %.2f %%!!" % (temp, humidity)
          str_cmd = "sendemail -f %s -t %s -u temp warnning -m %s -s %s -xu %s -xp %s" % (frommail, tomail, str_mailbody, smtp, userid, password)
