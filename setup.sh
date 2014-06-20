@@ -1,6 +1,10 @@
 #esrc Installation Scripts
 # by goldbassist@gmail.com , www.rasplay.org
 
+# Adafruite DHT Code Clone
+cd tempMailAlarm
+sh setup.sh
+
 # Install WebIOPi
 cd ~
 wget http://downloads.sourceforge.net/project/webiopi/WebIOPi-0.7.0.tar.gz
