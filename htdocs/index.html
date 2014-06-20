@@ -1,0 +1,548 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content = "height = device-height, width = 420, user-scalable = no" />
+    <title>WebIOPi | LED</title>
+    <script type="text/javascript" src="/webiopi.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+    <script type="text/javascript">
+    var fTemp, fHumi;
+
+    webiopi().ready(function() {
+        // create a Serial Monitor Textarea
+        readData();
+
+                var button;
+
+                // create a button which call PrintTime
+                button = webiopi().createMacroButton("macro", "<", "MoveLeft");
+                $("#middle").append(button); // append button to middle div
+
+                button = webiopi().createMacroButton("macro", "X", "Stop");
+                $("#middle").append(button); // append button to middle div
+
+                button = webiopi().createMacroButton("macro", ">", "MoveRight");
+                $("#middle").append(button); // append button to middle div
+
+                button = webiopi().createMacroButton("macro", "/\\", "MoveForward");
+                $("#up").append(button); // append button to up div
+
+                button = webiopi().createMacroButton("macro", "\\/", "MoveBackward");
+                $("#down").append(button); // append button to down div
+
+                webiopi().refreshGPIO(true);
+    });
+
+    function readData() {
+        webiopi().callMacro("GetTempHumi", [], updateTempHumi);
+        setTimeout(readData, 1000);
+    }
+
+    function updateTempHumi(macro, args, data) {
+        var buffer = data.split("\\n");
+        var buffer2 = buffer[2].split("*C, Hum = ");
+        var data1 = buffer2[0].replace("Temp = ","");
+        var data2 = buffer2[1].replace(" %", "");
+        $("#inputOn").val(data1);
+        $("#inputOff").val(data2);
+        // Following lines use jQuery functions
+        if ( !isNaN(parseFloat(data1)) )
+        {
+            fTemp = parseFloat(data1);
+         }
+        if ( !isNaN(parseFloat(data2)) )
+        {
+            fHumi = parseFloat(data2);
+        }
+
+    }
+
+
+
+
+
+
+    $(function () {
+        $(document).ready(function() {
+            Highcharts.setOptions({
+                global: {
+                    useUTC: false
+                }
+            });
+
+            //var chart;
+
+            $('#contTempChart').highcharts({
+                chart: {
+                    type: 'spline',
+                    animation: Highcharts.svg, // don't animate in old IE
+                    marginRight: 10,
+                    events: {
+                        load: function() {
+
+                            // set up the updating of the chart each second
+                            var series = this.series[0];
+                            setInterval(function() {
+                                var x = (new Date()).getTime(), // current time
+                                    //y = Math.random();
+                                    y = fTemp;
+                                series.addPoint([x, y], true, true);
+                            }, 1000);
+                        }
+                    }
+                },
+                title: {
+                    text: 'Live Temparature data'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150
+                },
+                yAxis: {
+                    title: {
+                        text: 'Value'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    formatter: function() {
+                            return '<b>'+ this.series.name +'</b><br/>'+
+                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+                            Highcharts.numberFormat(this.y, 2);
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: true
+                },
+                series: [{
+                    name: 'Temparature data',
+                    data: (function() {
+                        // generate an array of random data
+                        var data = [],
+                            time = (new Date()).getTime(),
+                            i;
+
+                        for (i = -100; i <= 0; i++) {
+                            data.push({
+                                x: time + i * 1000,
+                                //y: Math.random()
+                                y: fTemp
+                            });
+                        }
+                        return data;
+                    })()
+                }]
+            });
+
+            $('#contHumiChart').highcharts({
+                chart: {
+                    type: 'spline',
+                    animation: Highcharts.svg, // don't animate in old IE
+                    marginRight: 10,
+                    events: {
+                        load: function() {
+
+                            // set up the updating of the chart each second
+                            var series = this.series[0];
+                            setInterval(function() {
+                                var x = (new Date()).getTime(), // current time
+                                    //y = Math.random();
+                                    y = fHumi;
+                                series.addPoint([x, y], true, true);
+                            }, 1000);
+                        }
+                    }
+                },
+                title: {
+                    text: 'Live Humidity data'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150
+                },
+                yAxis: {
+                    title: {
+                        text: 'Value'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    formatter: function() {
+                            return '<b>'+ this.series.name +'</b><br/>'+
+                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+                            Highcharts.numberFormat(this.y, 2);
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: true
+                },
+                series: [{
+                    name: 'Humidity data',
+                    data: (function() {
+                        // generate an array of random data
+                        var data = [],
+                            time = (new Date()).getTime(),
+                            i;
+
+                        for (i = -100; i <= 0; i++) {
+                            data.push({
+                                x: time + i * 1000,
+                                //y: Math.random()
+                                y: fHumi
+                            });
+                        }
+                        return data;
+                    })()
+                }]
+            });
+        });
+
+    });
+
+    $(function () {
+
+        $('#contTempGauge').highcharts({
+
+    	    chart: {
+    	        type: 'gauge',
+    	        plotBackgroundColor: null,
+    	        plotBackgroundImage: null,
+    	        plotBorderWidth: 0,
+    	        plotShadow: false
+    	    },
+
+    	    title: {
+    	        text: 'Tempgauge'
+    	    },
+
+    	    pane: {
+    	        startAngle: -150,
+    	        endAngle: 150,
+    	        background: [{
+    	            backgroundColor: {
+    	                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+    	                stops: [
+    	                    [0, '#FFF'],
+    	                    [1, '#333']
+    	                ]
+    	            },
+    	            borderWidth: 0,
+    	            outerRadius: '109%'
+    	        }, {
+    	            backgroundColor: {
+    	                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+    	                stops: [
+    	                    [0, '#333'],
+    	                    [1, '#FFF']
+    	                ]
+    	            },
+    	            borderWidth: 1,
+    	            outerRadius: '107%'
+    	        }, {
+    	            // default background
+    	        }, {
+    	            backgroundColor: '#DDD',
+    	            borderWidth: 0,
+    	            outerRadius: '105%',
+    	            innerRadius: '103%'
+    	        }]
+    	    },
+
+    	    // the value axis
+    	    yAxis: {
+    	        min: 0,
+    	        max: 40,
+
+    	        minorTickInterval: 'auto',
+    	        minorTickWidth: 1,
+    	        minorTickLength: 10,
+    	        minorTickPosition: 'inside',
+    	        minorTickColor: '#666',
+
+    	        tickPixelInterval: 30,
+    	        tickWidth: 2,
+    	        tickPosition: 'inside',
+    	        tickLength: 10,
+    	        tickColor: '#666',
+    	        labels: {
+    	            step: 2,
+    	            rotation: 'auto'
+    	        },
+    	        title: {
+    	            text: 'Celsius'
+    	        },
+    	        plotBands: [{
+    	            from: 0,
+    	            to: 22,
+    	            //color: '#55BF3B' // green
+    	            color: '#DF5353' // red
+    	        }, {
+    	            from: 22,
+    	            to: 25,
+    	            color: '#DDDF0D' // yellow
+    	        }, {
+    	            from: 25,
+    	            to: 40,
+    	            color: '#DF5353' // red
+    	        }]
+    	    },
+
+    	    series: [{
+    	        name: 'Temparature',
+    	        data: [10],
+    	        tooltip: {
+    	            valueSuffix: ' Celsius'
+    	        }
+    	    }]
+
+    	},
+    	// Add some life
+    	function (chart) {
+    		if (!chart.renderer.forExport) {
+    		    setInterval(function () {
+    		        var point = chart.series[0].points[0],
+    		            newVal,
+    		            inc = Math.round((fTemp - 0.5) * 20);
+
+    		        newVal = point.y + inc;
+    		        if (newVal < 15 || newVal > 35) {
+    		            newVal = point.y - inc;
+    		        }
+
+    		        point.update(fTemp);
+
+    		    }, 3000);
+    		}
+    	});
+
+        $('#contHumiGauge').highcharts({
+
+    	    chart: {
+    	        type: 'gauge',
+    	        plotBackgroundColor: null,
+    	        plotBackgroundImage: null,
+    	        plotBorderWidth: 0,
+    	        plotShadow: false
+    	    },
+
+    	    title: {
+    	        text: 'Humigauge'
+    	    },
+
+    	    pane: {
+    	        startAngle: -150,
+    	        endAngle: 150,
+    	        background: [{
+    	            backgroundColor: {
+    	                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+    	                stops: [
+    	                    [0, '#FFF'],
+    	                    [1, '#333']
+    	                ]
+    	            },
+    	            borderWidth: 0,
+    	            outerRadius: '109%'
+    	        }, {
+    	            backgroundColor: {
+    	                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+    	                stops: [
+    	                    [0, '#333'],
+    	                    [1, '#FFF']
+    	                ]
+    	            },
+    	            borderWidth: 1,
+    	            outerRadius: '107%'
+    	        }, {
+    	            // default background
+    	        }, {
+    	            backgroundColor: '#DDD',
+    	            borderWidth: 0,
+    	            outerRadius: '105%',
+    	            innerRadius: '103%'
+    	        }]
+    	    },
+
+    	    // the value axis
+    	    yAxis: {
+    	        min: 0,
+    	        max: 100,
+
+    	        minorTickInterval: 'auto',
+    	        minorTickWidth: 1,
+    	        minorTickLength: 10,
+    	        minorTickPosition: 'inside',
+    	        minorTickColor: '#666',
+
+    	        tickPixelInterval: 30,
+    	        tickWidth: 2,
+    	        tickPosition: 'inside',
+    	        tickLength: 10,
+    	        tickColor: '#666',
+    	        labels: {
+    	            step: 2,
+    	            rotation: 'auto'
+    	        },
+    	        title: {
+    	            text: '%'
+    	        },
+    	        plotBands: [{
+    	            from: 0,
+    	            to: 42,
+    	            //color: '#55BF3B' // green
+    	            color: '#DF5353' // red
+    	        }, {
+    	            from: 42,
+    	            to: 55,
+    	            color: '#DDDF0D' // yellow
+    	        }, {
+    	            from: 55,
+    	            to: 100,
+    	            color: '#DF5353' // red
+    	        }]
+    	    },
+
+    	    series: [{
+    	        name: 'Humidity',
+    	        data: [80],
+    	        tooltip: {
+    	            valueSuffix: ' %'
+    	        }
+    	    }]
+
+    	},
+    	// Add some life
+    	function (chart) {
+    		if (!chart.renderer.forExport) {
+    		    setInterval(function () {
+    		        var point = chart.series[0].points[0],
+    		            newVal,
+    		            inc = fHumi;
+
+    		        newVal = point.y + inc;
+    		        if (newVal < 0 || newVal > 200) {
+    		            newVal = point.y - inc;
+    		        }
+
+    		        point.update(fHumi);
+
+    		    }, 3000);
+    		}
+    	});
+    });
+
+
+
+
+
+
+
+
+
+    </script>
+
+    <style type="text/css">
+                button {
+                        margin: 5px 5px 5px 5px;
+                        width: 45px;
+                        height: 45px;
+                        font-size: 24pt;
+                        font-weight: bold;
+                        color: black;
+                }
+    input[type="range"] {
+    display: block;
+    width: 160px;
+    height: 45px;
+    }
+
+    #gpio7.LOW {
+    background-color: White;
+    }
+
+    #gpio7.HIGH {
+    background-color: Red;
+    }
+
+    .container {
+    width:100%;
+    border:1px solid #C0C0C0;
+    }
+    .gauge_style {
+    float:left;
+    margin: 0em;
+    padding: 1em;
+    //width: 300px;
+    //height: 300px;
+    }
+    .trend_container {
+    height: 100%;
+    }
+    .trend_style {
+    float:top;
+    margin: 0.5em;
+    padding: 1em;
+
+    width:600px;
+    height:500px;
+    }
+    </style>
+
+</head>
+
+<body>
+    <!--textarea id="output" rows="2" cols="10" disabled="disabled"></textarea><br/-->
+    <div class = "container">
+    <!--debug-->
+        Temp at :<input type="text" id="inputOn" style="width:500px;"/><br/>
+        Humi at: <input type="text" id="inputOff" style="width:500px;" /><br/>
+    <!---->
+        <div class = "gauge_style">
+            <div id="contTempGauge" style="width: 200px; height: 200px;"></div>
+        </div>
+        <div class = "gauge_style">
+        <div id="content" align="center">
+                <div id="up"></div>
+                <div id="middle"></div>
+                <div id="down"></div>
+        </div>
+        </div>
+        <div class = "gauge_style">
+            <div id="contHumiGauge" style="width: 200px; height: 200px;"></div>
+        </div>
+    </div>
+
+    <!--div class = "trend_container">
+        <div class = "trend_style">
+            <div id="contTempChart" style="width: 100%; height: 50%; margin:0 auto"></div>
+        </div>
+        <div class = "trend_style">
+            <div id="contHumiChart" style="width: 100%; height: 50%; margin:0 auto"></div>
+        </div>
+    </div-->
+    <img src="http://fendergold.iptime.org:32788/?action=stream" />
+        <div id="content" align="center">
+                <div id="up"></div>
+                <div id="middle"></div>
+                <div id="down"></div>
+        </div>
+</body>
+</html>
