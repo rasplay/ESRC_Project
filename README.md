@@ -4,7 +4,7 @@
 
 ### Parts ###
 Name| 
------------- | -------------
+------------ | -------------|
 [Tamiya Remote Controlled Bulldozer Kit](http://www.tamiyamall.co.kr/mall/item.asp?siteid=shop&catid=118&itemid=5792)| 
 [Raspberry Pi](http://www.icbanq.com/shop/product_detail.asp?prod_code=P001935674)| 
 [SD Memory(8G, class10)](http://www.icbanq.com/shop/product_detail.asp?prod_code=P004708868&catg_code=)|
